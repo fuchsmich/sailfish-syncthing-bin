@@ -1,4 +1,4 @@
-Name:		syncthing
+Name:		syncthing-bin
 # Epoch:		1
 Version:	0.14.7
 Release:		1
