@@ -1,6 +1,6 @@
 Name:		syncthing-bin
 # Epoch:		1
-Version:	0.14.7
+Version:	0.14.8
 Release:		1
 Summary:	Open Source Continuous Replication / Cluster Synchronization Thing
 License:	MPL
@@ -23,6 +23,9 @@ Requires(postun): 	systemd
 %description
 Syncthing replaces proprietary sync and cloud services with something open, trustworthy and decentralized. Your data is your data alone and you deserve to choose where it is stored, if it is shared with some third party and how it's transmitted over the Internet.
 
+#%prep
+#%setup
+
 %install
 echo %{_arch}
 %ifarch armv7hl
@@ -36,5 +39,5 @@ install -p -D -m 0755 %{SOURCE3}/syncthing $RPM_BUILD_ROOT%{_bindir}/syncthing
 install -p -D -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_libdir}/systemd/user/syncthing.service
 
 %files
-%{_bindir}/%{name}
+%{_bindir}/syncthing
 %{_libdir}/systemd/user/syncthing.service
