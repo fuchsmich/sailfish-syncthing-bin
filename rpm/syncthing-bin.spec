@@ -1,4 +1,5 @@
-Name:		syncthing-bin
+%define binname syncthing
+Name:		%{binname}-bin
 # Epoch:		1
 Version:	0.14.8
 Release:		1
@@ -7,11 +8,11 @@ License:	MPL
 # Group:
 URL:		https://syncthing.net/
 
-%define arm_basename syncthing-linux-arm-v%{version}
-%define i486_basename syncthing-linux-386-v%{version}
+%define arm_basename %{binname}-linux-arm-v%{version}
+%define i486_basename %{binname}-linux-386-v%{version}
 Source0: 	%{arm_basename}.tar.gz
 Source1:  	%{i486_basename}.tar.gz
-Source2:  	syncthing.service
+#Source2:  	%{binname}.service
 
 # BuildRequires: go
 # BuildRequires: git
@@ -32,19 +33,25 @@ Syncthing replaces proprietary sync and cloud services with something open, trus
 
 %install
 %ifarch armv7hl
-rm -rf %{arm_basename}
-tar -xzf %{SOURCE0}
-install -p -D -m 0755 %{arm_basename}/syncthing $RPM_BUILD_ROOT%{_bindir}/syncthing
-install -p -D -m 0644 %{arm_basename}/etc/linux-systemd/user/syncthing.service $RPM_BUILD_ROOT%{_libdir}/systemd/user/syncthing.service
+	%define basenam %{arm_basename}
+	%define tgz %{SOURCE0}
 %endif
+
 %ifarch i486
-rm -rf %{i486_basename}
-tar -xzf %{SOURCE1}
-install -p -D -m 0755 %{i486_basename}/syncthing $RPM_BUILD_ROOT%{_bindir}/syncthing
-install -p -D -m 0644 %{i486_basename}/etc/linux-systemd/user/syncthing.service $RPM_BUILD_ROOT%{_libdir}/systemd/user/syncthing.service
+	%define basenam %{i486_basename}
+	%define tgz %{SOURCE1}
 %endif
-#install -p -D -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_libdir}/systemd/user/syncthing.service
+
+rm -rf %{basenam}
+tar -xzf %{tgz}
+pwd
+install -p -D -m 0755 %{basenam}/%{binname} $RPM_BUILD_ROOT%{_bindir}/%{binname}
+install -p -D -m 0644 %{basenam}/etc/linux-systemd/user/%{binname}.service $RPM_BUILD_ROOT%{_libdir}/systemd/user/%{binname}.service
+install -p -D -m 0644 %{basenam}/etc/linux-systemd/system/%{binname}@.service $RPM_BUILD_ROOT%{_libdir}/systemd/system/%{binname}@.service
+install -p -D -m 0644 %{basenam}/AUTHORS.txt %{basenam}/LICENSE.txt %{basenam}/README.txt .
 
 %files
-%{_bindir}/syncthing
-%{_libdir}/systemd/user/syncthing.service
+%doc AUTHORS.txt LICENSE.txt README.txt
+%{_bindir}/%{binname}
+%{_libdir}/systemd/user/%{binname}.service
+%{_libdir}/systemd/system/%{binname}@.service
