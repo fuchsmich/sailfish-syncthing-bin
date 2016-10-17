@@ -35,13 +35,15 @@ Syncthing replaces proprietary sync and cloud services with something open, trus
 rm -rf %{arm_basename}
 tar -xzf %{SOURCE0}
 install -p -D -m 0755 %{arm_basename}/syncthing $RPM_BUILD_ROOT%{_bindir}/syncthing
+install -p -D -m 0644 %{arm_basename}/etc/linux-systemd/user/syncthing.service $RPM_BUILD_ROOT%{_libdir}/systemd/user/syncthing.service
 %endif
 %ifarch i486
 rm -rf %{i486_basename}
 tar -xzf %{SOURCE1}
 install -p -D -m 0755 %{i486_basename}/syncthing $RPM_BUILD_ROOT%{_bindir}/syncthing
+install -p -D -m 0644 %{i486_basename}/etc/linux-systemd/user/syncthing.service $RPM_BUILD_ROOT%{_libdir}/systemd/user/syncthing.service
 %endif
-install -p -D -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_libdir}/systemd/user/syncthing.service
+#install -p -D -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_libdir}/systemd/user/syncthing.service
 
 %files
 %{_bindir}/syncthing
