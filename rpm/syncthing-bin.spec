@@ -5,7 +5,7 @@ Version:	0.14.8
 Release:		1
 Summary:	Open Source Continuous Replication / Cluster Synchronization Thing
 License:	MPL
-# Group:
+Group:		Applications/System
 URL:		https://syncthing.net/
 
 %define arm_basename %{binname}-linux-arm-v%{version}
@@ -46,12 +46,12 @@ rm -rf %{basenam}
 tar -xzf %{tgz}
 pwd
 install -p -D -m 0755 %{basenam}/%{binname} $RPM_BUILD_ROOT%{_bindir}/%{binname}
-install -p -D -m 0644 %{basenam}/etc/linux-systemd/user/%{binname}.service $RPM_BUILD_ROOT%{_libdir}/systemd/user/%{binname}.service
-install -p -D -m 0644 %{basenam}/etc/linux-systemd/system/%{binname}@.service $RPM_BUILD_ROOT%{_libdir}/systemd/system/%{binname}@.service
+install -p -D -m 0644 %{basenam}/etc/linux-systemd/user/%{binname}.service $RPM_BUILD_ROOT%{_userunitdir}/%{binname}.service
+install -p -D -m 0644 %{basenam}/etc/linux-systemd/system/%{binname}@.service $RPM_BUILD_ROOT%{_unitdir}/%{binname}@.service
 install -p -D -m 0644 %{basenam}/AUTHORS.txt %{basenam}/LICENSE.txt %{basenam}/README.txt .
 
 %files
 %doc AUTHORS.txt LICENSE.txt README.txt
 %{_bindir}/%{binname}
-%{_libdir}/systemd/user/%{binname}.service
-%{_libdir}/systemd/system/%{binname}@.service
+%{_unitdir}/%{binname}@.service
+%{_userunitdir}/%{binname}.service
