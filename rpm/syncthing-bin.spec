@@ -50,6 +50,10 @@ install -p -D -m 0644 %{basenam}/etc/linux-systemd/user/%{binname}.service $RPM_
 install -p -D -m 0644 %{basenam}/etc/linux-systemd/system/%{binname}@.service $RPM_BUILD_ROOT%{_unitdir}/%{binname}@.service
 install -p -D -m 0644 %{basenam}/AUTHORS.txt %{basenam}/LICENSE.txt %{basenam}/README.txt .
 
+%post
+%systemd_postun  #calls systemctl daemon-reload
+
+
 %files
 %doc AUTHORS.txt LICENSE.txt README.txt
 %{_bindir}/%{binname}
