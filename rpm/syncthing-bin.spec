@@ -2,7 +2,7 @@
 Name:		%{binname}-bin
 # Epoch:		1
 Version:	0.14.8
-Release:		1
+Release:		2
 Summary:	Open Source Continuous Replication / Cluster Synchronization Thing
 License:	MPL
 Group:		Applications/System
@@ -21,6 +21,7 @@ Source1:  	%{i486_basename}.tar.gz
 Requires(post):    	systemd
 Requires(preun):   	systemd
 Requires(postun): 	systemd
+Provides: syncthing
 
 %description
 Syncthing replaces proprietary sync and cloud services with something open, trustworthy and decentralized. Your data is your data alone and you deserve to choose where it is stored, if it is shared with some third party and how it's transmitted over the Internet.
