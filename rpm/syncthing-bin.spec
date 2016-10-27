@@ -4,7 +4,7 @@ Name:		%{binname}-bin
 Version:	0.14.9
 Release:		1
 Summary:	Open Source Continuous Replication / Cluster Synchronization Thing
-License:	MPL
+License:	MPLv2
 Group:		Applications/System
 URL:		https://syncthing.net/
 
