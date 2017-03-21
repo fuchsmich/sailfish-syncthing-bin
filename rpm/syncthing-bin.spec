@@ -1,7 +1,7 @@
 %define binname syncthing
 Name:		%{binname}-bin
 # Epoch:		1
-Version:	0.14.14
+Version:	0.14.25
 Release:		1
 Summary:	Open Source Continuous Replication / Cluster Synchronization Thing
 License:	MPLv2
@@ -23,8 +23,9 @@ URL:		https://syncthing.net/
 	%define tgz %{basenam}.tar.gz
 %endif
 Source0: 	%{tgz}
-Source1:    syncthing.service
-Source2:    syncthing@.service
+Source1:    %{binname}.service
+Source2:    %{binname}@.service
+Source3:    %{binname}-resume.service
 
 # BuildRequires: go
 # BuildRequires: git
@@ -57,6 +58,7 @@ install -p -D -m 0755 %{basenam}/%{binname} $RPM_BUILD_ROOT%{_bindir}/%{binname}
 # install -p -D -m 0644 %{basenam}/etc/linux-systemd/system/%{binname}@.service $RPM_BUILD_ROOT%{_unitdir}/%{binname}@.service
 install -p -D -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_userunitdir}/%{binname}.service
 install -p -D -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/%{binname}@.service
+install -p -D -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_unitdir}/%{binname}-resume.service
 install -p -D -m 0644 %{basenam}/AUTHORS.txt %{basenam}/LICENSE.txt %{basenam}/README.txt .
 
 %post
@@ -66,6 +68,7 @@ install -p -D -m 0644 %{basenam}/AUTHORS.txt %{basenam}/LICENSE.txt %{basenam}/R
 %files
 %doc AUTHORS.txt LICENSE.txt README.txt
 %{_bindir}/%{binname}
-%{_unitdir}/%{binname}@.service
 %{_userunitdir}/%{binname}.service
+%{_unitdir}/%{binname}@.service
+%{_unitdir}/%{binname}-resume.service
 

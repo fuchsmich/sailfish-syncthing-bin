@@ -4,10 +4,10 @@ Documentation=man:syncthing(1)
 Wants=syncthing-inotify.service
 
 [Service]
-ExecStart=/usr/bin/syncthing -no-browser -logflags=0
-#Restart=on-failure
+ExecStart=/usr/bin/syncthing -no-browser -no-restart -logflags=0
+Restart=on-failure
 #SuccessExitStatus=3 4
-#RestartForceExitStatus=3 4
+RestartForceExitStatus=3 4
 
 [Install]
 WantedBy=default.target
